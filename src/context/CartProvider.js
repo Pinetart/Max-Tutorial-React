@@ -7,9 +7,6 @@ const defaultCartState = { items: [], totalAmount: 0 };
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
-      console.log("dog");
-      const dog = state.items.concat(action.item);
-      console.log(dog);
       return {
         items: state.items.concat(action.item),
         totalAmount: state.totalAmount + action.item.price * action.item.amount,
