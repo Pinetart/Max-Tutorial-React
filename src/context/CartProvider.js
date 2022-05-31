@@ -15,8 +15,8 @@ const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider
       value={{
-        items,
-        totalAmount,
+        items: [],
+        totalAmount: 0,
         addItem: addItemtoCartHandler,
         removeItem: removeItemFromCartHandler,
       }}

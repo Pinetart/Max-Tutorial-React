@@ -11,7 +11,7 @@ const Header = ({ onShowCart }) => {
         <HeaderCartButton onClick={onShowCart} />
       </header>
       <div className={classes["main-image"]}>
-        <img src={mealsImage} alt="Meals Image" />
+        <img src={mealsImage} alt="Meals" />
       </div>
     </Fragment>
   );
