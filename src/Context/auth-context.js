@@ -24,11 +24,11 @@ export const AuthContextProvider = ({ children }) => {
     setIsLoggedIn(true);
   };
   return (
-    <AuthContextProvider
+    <AuthContext.Provider
       value={{ isLoggedIn, onLogout: logoutHandler, onLogin: loginHandler }}
     >
       {children}
-    </AuthContextProvider>
+    </AuthContext.Provider>
   );
 };
 
