@@ -5,10 +5,14 @@ import CartItem from "./CartItem";
 import { CartContext } from "../../context/CartProvider";
 
 const Cart = ({ onClose }) => {
-  const { items, totalAmount } = useContext(CartContext);
+  const { items, totalAmount, addItem, removeItem } = useContext(CartContext);
 
-  const cartItemRemoveHandler = (id) => {};
-  const cartItemAddHandler = (item) => {};
+  const cartItemRemoveHandler = (id) => {
+    removeItem(id);
+  };
+  const cartItemAddHandler = (item) => {
+    addItem({ ...item, amount: 1 });
+  };
 
   return (
     <Modal onClose={onClose}>
