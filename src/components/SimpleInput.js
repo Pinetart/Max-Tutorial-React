@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isValid, setIsValid] = useState(true);
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
@@ -10,17 +10,20 @@ const SimpleInput = (props) => {
   const formSubmissionHandler = (e) => {
     e.preventDefault();
     if (enteredName.trim() === "") {
-      setErrorMessage("Please enter a value.");
+      setIsValid(false);
       return;
     }
     console.log(enteredName);
 
+    setIsValid(true);
     setEnteredName("");
-    setErrorMessage("");
   };
+
+  const nameInputClasses = isValid ? "form-control" : "form-control invalid";
+
   return (
     <form onSubmit={formSubmissionHandler}>
-      <div className="form-control">
+      <div className={nameInputClasses}>
         <label htmlFor="name">Your Name</label>
         <input
           type="text"
@@ -28,7 +31,7 @@ const SimpleInput = (props) => {
           onChange={nameInputChangeHandler}
           value={enteredName}
         />
-        {errorMessage && <p>{errorMessage}</p>}
+        {!isValid && <p className="error-text">Please Enter a Value</p>}
       </div>
       <div className="form-actions">
         <button>Submit</button>
