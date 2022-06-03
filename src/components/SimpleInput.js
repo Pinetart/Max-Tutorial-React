@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
@@ -16,6 +16,7 @@ const SimpleInput = (props) => {
     console.log(enteredName);
 
     setEnteredName("");
+    setErrorMessage("");
   };
   return (
     <form onSubmit={formSubmissionHandler}>
