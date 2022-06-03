@@ -2,24 +2,31 @@ import { useState } from "react";
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
+  const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
   };
+
+  const nameInputisInvalid = !enteredNameIsValid && enteredNameTouched;
+
   const formSubmissionHandler = (e) => {
     e.preventDefault();
     if (enteredName.trim() === "") {
-      setIsValid(false);
+      setEnteredNameIsValid(false);
+      setEnteredNameTouched(true);
       return;
     }
     console.log(enteredName);
 
-    setIsValid(true);
+    setEnteredNameIsValid(true);
     setEnteredName("");
   };
 
-  const nameInputClasses = isValid ? "form-control" : "form-control invalid";
+  const nameInputClasses = nameInputisInvalid
+    ? "form-control invalid"
+    : "form-control";
 
   return (
     <form onSubmit={formSubmissionHandler}>
@@ -31,7 +38,9 @@ const SimpleInput = (props) => {
           onChange={nameInputChangeHandler}
           value={enteredName}
         />
-        {!isValid && <p className="error-text">Please Enter a Value</p>}
+        {nameInputisInvalid && (
+          <p className="error-text">Please Enter a Value</p>
+        )}
       </div>
       <div className="form-actions">
         <button>Submit</button>
