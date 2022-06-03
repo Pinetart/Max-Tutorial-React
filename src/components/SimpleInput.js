@@ -1,19 +1,20 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const SimpleInput = (props) => {
-  // const nameInputRef = useRef();
-
   const [enteredName, setEnteredName] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
   };
   const formSubmissionHandler = (e) => {
     e.preventDefault();
+    if (enteredName.trim() === "") {
+      setErrorMessage("Please enter a value.");
+      return;
+    }
     console.log(enteredName);
-    // console.log(nameInputRef.current.value);
 
-    // nameInputRef.current.value = "";
     setEnteredName("");
   };
   return (
@@ -23,10 +24,10 @@ const SimpleInput = (props) => {
         <input
           type="text"
           id="name"
-          // ref={nameInputRef}
           onChange={nameInputChangeHandler}
           value={enteredName}
         />
+        {errorMessage && <p>{errorMessage}</p>}
       </div>
       <div className="form-actions">
         <button>Submit</button>
