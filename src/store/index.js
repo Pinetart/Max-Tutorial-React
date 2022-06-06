@@ -1,10 +1,12 @@
 import { createStore } from "redux";
 
+export const INCREMENT = "increment";
+
 const initialState = { counter: 0, showCounter: true };
 
 const counterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "increment":
+    case INCREMENT:
       // state.counter++
       //NEVER do the above, would be changing state snapshot
       return {

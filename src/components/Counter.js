@@ -1,4 +1,5 @@
 import classes from "./Counter.module.css";
+import { INCREMENT } from "../index";
 import { useSelector, useDispatch } from "react-redux";
 
 const Counter = () => {
@@ -7,7 +8,7 @@ const Counter = () => {
   const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: "increment" });
+    dispatch({ type: INCREMENT });
   };
   const decrementHandler = () => {
     dispatch({ type: "decrement" });
