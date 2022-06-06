@@ -1,12 +1,30 @@
 import { createStore } from "redux";
-
-export const INCREMENT = "increment";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { counter: 0, showCounter: true };
 
+createSlice({
+  name: "counter",
+  initialState,
+  reducers: {
+    increment(state) {
+      state.counter++;
+    },
+    decrement(state) {
+      state.counter--;
+    },
+    increase(state, action) {
+      state.counter = state.counter + action.value;
+    },
+    toggleCounter(state) {
+      state.showCounter = !state.showCounter;
+    },
+  },
+});
+
 const counterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case INCREMENT:
+    case "increment":
       // state.counter++
       //NEVER do the above, would be changing state snapshot
       return {
