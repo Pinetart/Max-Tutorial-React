@@ -5,6 +5,8 @@ const initialState = { counter: 0, showCounter: true };
 const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case "increment":
+      // state.counter++
+      //NEVER do the above, would be changing state snapshot
       return {
         ...state,
         counter: state.counter + 1,
