@@ -31,7 +31,10 @@ const AuthForm = () => {
       if (response.ok) {
         alert("Successful login");
         const data = await response.json();
-        login(data.idToken);
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
+        login(data.idToken, expirationTime.toISOString());
         history.replace("/");
       } else {
         throw new Error("Authentication failed");
