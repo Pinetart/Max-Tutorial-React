@@ -3,9 +3,8 @@ import { useState, useRef } from "react";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -19,38 +18,41 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
     setIsLoading(true);
 
-    //validation
-    if (isLogin) {
-    } else {
-      async function fetchData() {
-        try {
-          const response = await fetch(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALDEpKwjthdMLNHloMHoQvf0FNLKt-7Oo",
-            {
-              method: "POST",
-              body: JSON.stringify({
-                email: enteredEmail,
-                password: enteredPassword,
-                returnSecureToken: true,
-              }),
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-          setIsLoading(false);
-          if (!response.ok) {
-            const data = await response.json();
-            let errorMessage = "Authentication failed";
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
-              alert(errorMessage);
-            }
-          }
-        } catch (err) {
-          console.log(err.message);
+    async function fetchData(url) {
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+            returnSecureToken: true,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+        setIsLoading(false);
+        if (response.ok) {
+          alert("Successful login");
+          const data = await response.json();
+          console.log(data);
+        } else {
+          let errorMessage = "Authentication failed";
+          throw new Error(errorMessage);
         }
+      } catch (err) {
+        alert(err.message);
       }
-      fetchData();
     }
+
+    //validation
+    let url;
+    if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyALDEpKwjthdMLNHloMHoQvf0FNLKt-7Oo";
+    } else {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALDEpKwjthdMLNHloMHoQvf0FNLKt-7Oo";
+    }
+    fetchData(url);
   };
 
   return (
