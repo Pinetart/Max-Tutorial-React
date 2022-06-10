@@ -1,10 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import AuthContext from "../../context/authContext";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const { login } = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -33,7 +35,7 @@ const AuthForm = () => {
         if (response.ok) {
           alert("Successful login");
           const data = await response.json();
-          console.log(data);
+          login(data.idToken);
         } else {
           let errorMessage = "Authentication failed";
           throw new Error(errorMessage);
