@@ -37,8 +37,7 @@ const AuthForm = () => {
           const data = await response.json();
           login(data.idToken);
         } else {
-          let errorMessage = "Authentication failed";
-          throw new Error(errorMessage);
+          throw new Error("Authentication failed");
         }
       } catch (err) {
         alert(err.message);
