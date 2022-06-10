@@ -1,12 +1,15 @@
 import classes from "./ProfileForm.module.css";
 import { useRef, useContext } from "react";
 import AuthContext from "../../context/authContext";
+import { useHistory } from "react-router-dom";
 
 const ProfileForm = () => {
   const newPasswordInputRef = useRef();
+  const history = useHistory();
   const url =
     "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyALDEpKwjthdMLNHloMHoQvf0FNLKt-7Oo";
   const { token } = useContext(AuthContext);
+
   const fetchChangePassword = async (url, enteredNewPassword, idToken) => {
     try {
       const response = await fetch(url, {
@@ -22,6 +25,7 @@ const ProfileForm = () => {
         alert("Successful password change");
         const data = await response.json();
         console.log(data);
+        history.replace("/");
       } else {
         console.log(url, enteredNewPassword, token);
         const data = await response.json();

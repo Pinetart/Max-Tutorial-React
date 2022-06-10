@@ -1,5 +1,6 @@
 import { useState, useRef, useContext } from "react";
 import AuthContext from "../../context/authContext";
+import { useHistory } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
 
@@ -7,6 +8,7 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useContext(AuthContext);
+  const history = useHistory();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -14,35 +16,36 @@ const AuthForm = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
+  async function fetchData(url, enteredEmail, enteredPassword) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      setIsLoading(false);
+      if (response.ok) {
+        alert("Successful login");
+        const data = await response.json();
+        login(data.idToken);
+        history.replace("/");
+      } else {
+        throw new Error("Authentication failed");
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     setIsLoading(true);
-
-    async function fetchData(url) {
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: { "Content-Type": "application/json" },
-        });
-        setIsLoading(false);
-        if (response.ok) {
-          alert("Successful login");
-          const data = await response.json();
-          login(data.idToken);
-        } else {
-          throw new Error("Authentication failed");
-        }
-      } catch (err) {
-        alert(err.message);
-      }
-    }
 
     //validation
     let url;
@@ -53,7 +56,7 @@ const AuthForm = () => {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALDEpKwjthdMLNHloMHoQvf0FNLKt-7Oo";
     }
-    fetchData(url);
+    fetchData(url, enteredEmail, enteredPassword);
   };
 
   return (
