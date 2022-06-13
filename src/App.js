@@ -1,22 +1,20 @@
-import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-import Counter from "./components/Counter";
-import Header from "./components/Header";
-import Auth from "./components/Auth";
-import UserProfile from "./components/UserProfile";
+import Navigation from './components/Nav/Navigation';
+import ProductsPage from './containers/Products';
+import FavoritesPage from './containers/Favorites';
 
-function App() {
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
-
+const App = props => {
   return (
-    <Fragment>
-      <Header />
-      {!isAuth && <Auth />}
-      {isAuth && <UserProfile />}
-      <Counter />
-    </Fragment>
+    <React.Fragment>
+      <Navigation />
+      <main>
+        <Route path="/" component={ProductsPage} exact />
+        <Route path="/favorites" component={FavoritesPage} />
+      </main>
+    </React.Fragment>
   );
-}
+};
 
 export default App;
