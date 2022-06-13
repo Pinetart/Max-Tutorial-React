@@ -13,3 +13,7 @@ let isInstructor: boolean = false;
 let hobbies: string[] = ["dog", "cat", "mouse"];
 let person: { name: string; age: number } = { name: "Zane", age: 24 };
 let people: { name: string; age: number }[] = [{ name: "Zane", age: 24 }];
+
+// Type inference
+
+let course = "React - The complete guide";
