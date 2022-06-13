@@ -4,8 +4,13 @@
 
 // Type alias
 
-type Person = { name: string; age: number };
+type Person = { name: string; age: number }; //alias uses equal sign (=)
 type People = { name: string; age: number }[];
+
+// Type inference
+
+let course: string | number = "React - The complete guide";
+course = 12345;
 
 //Primitives
 
@@ -22,7 +27,12 @@ let people: { name: string; age: number }[] = [{ name: "Zane", age: 24 }]; //No 
 let personAlias: Person = { name: "Zane", age: 24 }; //alias
 let peopleAlias: People = [{ name: "Zane", age: 24 }]; //alias
 
-// Type inference
+//Functions & types
 
-let course: string | number = "React - The complete guide";
-course = 12345;
+const addNumbers = (a: number, b: number) => {
+  return a + b;
+};
+
+const printValue = (value: any) => {
+  console.log(value);
+};
