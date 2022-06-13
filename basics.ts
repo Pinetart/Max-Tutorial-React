@@ -36,3 +36,14 @@ const addNumbers = (a: number, b: number) => {
 const printValue = (value: any) => {
   console.log(value);
 };
+
+//Generics
+
+const insertAtBeginning = <T>(array: T[], value: T) => {
+  const newArray = [value, ...array];
+  return newArray;
+};
+
+const demoArray = [1, 2, 3, "dog"];
+const updatedArray = insertAtBeginning(demoArray, -20);
+console.log(updatedArray);
