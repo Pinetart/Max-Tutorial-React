@@ -1,8 +1,12 @@
-export default function Todos() {
+import React from "react";
+
+const Todos: React.FC<{ items: string[] }> = ({ items }) => {
   return (
     <ul>
-      <li>Learn React</li>
-      <li>Learn TypeScript</li>
+      {items.map((item) => (
+        <li key={item}></li>
+      ))}
     </ul>
   );
-}
+};
+export default Todos;
