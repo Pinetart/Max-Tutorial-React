@@ -1,0 +1,24 @@
+{
+  "name": "Redux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "no-typescript.js",
+  "dependencies": {
+    "typescript": "^4.7.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pinetart/Max-Tutorial-React.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pinetart/Max-Tutorial-React/issues"
+  },
+  "homepage": "https://github.com/Pinetart/Max-Tutorial-React#readme"
+}
