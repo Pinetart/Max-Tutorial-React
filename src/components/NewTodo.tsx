@@ -1,9 +1,9 @@
 import { FormEvent, useRef } from "react";
 import classes from "./NewTodo.module.css";
 
-const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = ({
-  onAddTodo,
-}) => {
+const NewTodo: React.FC<{
+  onAddTodo: (text: string) => void;
+}> = ({ onAddTodo }) => {
   const todoTextInputRef = useRef<HTMLInputElement>(null);
 
   const submitHandler = (e: FormEvent) => {
